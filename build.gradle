@@ -4,6 +4,7 @@ buildscript {
         hilt_version = '2.46.1'
         activity_ktx_version = '1.7.2'
         fragment_ktx_version = '1.6.0'
+        navigation_ktx_version = "2.6.0"
         retrofit_version = '2.9.0'
         logging_interceptor_version = '5.0.0-alpha.11'
     }
