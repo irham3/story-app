@@ -15,4 +15,8 @@
     <string name="email">Email</string>
     <string name="belum_punya_akun">Belum punya akun? </string>
     <string name="daftar_sekarang">Daftar Sekarang</string>
+    <string name="register">Register</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="sudah_punya_akun">Sudah Punya Akun? </string>
+    <string name="masuk_sekarang">Masuk Sekarang</string>
 </resources>

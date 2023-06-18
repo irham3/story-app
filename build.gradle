@@ -6,10 +6,12 @@ buildscript {
         fragment_ktx_version = '1.6.0'
         navigation_ktx_version = "2.6.0"
         retrofit_version = '2.9.0'
+        datastore_version = '1.0.0'
         logging_interceptor_version = '5.0.0-alpha.11'
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_ktx_version"
     }
 }
 
