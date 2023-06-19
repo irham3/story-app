@@ -1,5 +1,6 @@
 package org.irham3.storyapp.data
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -30,11 +31,13 @@ class AuthRepository @Inject constructor(
         flow {
             emit(Result.Loading())
             val response = apiService.login(email, password)
-
             if (response.isSuccessful)
                 emit(Result.Success(response.body()))
-            else
+            else{
                 emit(Result.Error(response.message()))
+                Log.e("auth", response.body().toString())
+            }
+
         }.flowOn(Dispatchers.IO)
 
     fun getAuthToken(): Flow<String> =
