@@ -2,7 +2,6 @@ package org.irham3.storyapp.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,16 +35,13 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            val email = edtEmail.text.toString()
-            val password = edtPassword.text.toString()
 
             tvToRegister.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment)
             )
 
             btnLogin.setOnClickListener {
-
-                login(email, password)
+                login()
             }
         }
     }
@@ -55,12 +51,20 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 
-    private fun login(email: String, password: String) {
+    private fun login() {
+        val email = binding.edtEmail.text.toString()
+        val password = binding.edtPassword.text.toString()
+
         viewModel.login(email, password).observe(viewLifecycleOwner) { result ->
             when(result) {
-                is Result.Loading -> {}
+                is Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
 
                 is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Login Berhasil",
+                        Toast.LENGTH_SHORT).show()
                     result.data?.loginResult?.token?.let { token ->
                         viewModel.saveAuthToken(token)
                     }
@@ -72,9 +76,9 @@ class LoginFragment : Fragment() {
                 }
 
                 is Result.Error -> {
-                    Log.e("auth", email)
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), result.message.toString(),
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_LONG).show()
                 }
             }
         }

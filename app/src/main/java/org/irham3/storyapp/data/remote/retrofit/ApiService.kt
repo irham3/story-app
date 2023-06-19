@@ -28,8 +28,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("v1/login")
     suspend fun login(
-        @Field("name") name: String,
-        @Field("email") email: String
+        @Field("email") email: String,
+        @Field("password") password: String
     ) : Response<LoginResponse>
 
     @Multipart

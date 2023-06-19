@@ -1,20 +1,16 @@
 package org.irham3.storyapp.ui.auth.register
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.irham3.storyapp.R
 import org.irham3.storyapp.data.Result
-import org.irham3.storyapp.databinding.FragmentLoginBinding
 import org.irham3.storyapp.databinding.FragmentRegisterBinding
 
 @AndroidEntryPoint
@@ -36,42 +32,45 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            val name = edtName.text.toString()
-            val email = edtEmail.text.toString()
-            val password = edtPassword.text.toString()
 
             tvToLogin.setOnClickListener {
                 navigateToLogin()
             }
 
             btnRegister.setOnClickListener {
-                register(name, email, password)
+                register()
             }
         }
     }
 
-    private fun register(name: String, email: String, password: String) {
+    private fun register() {
+        val name = binding.edtName.text.toString()
+        val email = binding.edtEmail.text.toString()
+        val password = binding.edtPassword.text.toString()
+
         viewModel.register(name, email, password).observe(viewLifecycleOwner) { result ->
             when(result) {
-                is Result.Loading -> {}
+                is Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
                 is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     result.data?.message.let {
                         Toast.makeText(requireContext(), it,
                             Toast.LENGTH_SHORT).show()
                     }
-
                     navigateToLogin()
                 }
                 is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), result.data.toString(),
-                        Toast.LENGTH_SHORT).show()
-                    Log.e("error", result.message.toString())
+                        Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
     private fun navigateToLogin() {
-        Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment)
+        view!!.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
     }
 }
