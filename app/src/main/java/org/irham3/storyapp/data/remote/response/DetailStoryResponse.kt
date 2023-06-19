@@ -11,10 +11,10 @@ data class DetailStoryResponse(
 	val message: String,
 
 	@field:SerializedName("story")
-	val story: Story
+	val storyResponse: StoryResponse
 )
 
-data class Story(
+data class StoryResponse(
 
 	@field:SerializedName("photoUrl")
 	val photoUrl: String,
