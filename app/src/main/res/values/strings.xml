@@ -19,4 +19,7 @@
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="sudah_punya_akun">Sudah Punya Akun? </string>
     <string name="masuk_sekarang">Masuk Sekarang</string>
+    <string name="logout">Logout</string>
+    <string name="nestedscrollviewfragment">NestedScrollViewFragment</string>
+    <string name="tambah_cerita">Tambah Cerita</string>
 </resources>

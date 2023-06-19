@@ -19,4 +19,9 @@ class MainViewModel @Inject constructor (
     fun getAuthToken() =
         authRepository.getAuthToken().asLiveData()
 
+    fun logout() {
+        viewModelScope.launch {
+            authRepository.logout()
+        }
+    }
 }

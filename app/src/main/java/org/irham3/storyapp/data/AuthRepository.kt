@@ -38,9 +38,14 @@ class AuthRepository @Inject constructor(
 
         }.flowOn(Dispatchers.IO)
 
+    suspend fun logout() {
+        authPreferences.clearPreferences()
+    }
+
     fun getAuthToken(): Flow<String> =
         authPreferences.getAuthToken()
 
     suspend fun saveAuthToken(token: String) =
         authPreferences.saveAuthToken(token)
+
 }

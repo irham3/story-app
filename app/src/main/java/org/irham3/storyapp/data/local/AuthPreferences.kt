@@ -28,4 +28,10 @@ class AuthPreferences @Inject constructor(private val dataStore: DataStore<Prefe
             mutablePreferences[TOKEN_KEY] = token
         }
     }
+
+    suspend fun clearPreferences() {
+        dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
 }
