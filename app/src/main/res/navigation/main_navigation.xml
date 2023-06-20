@@ -11,4 +11,9 @@
         android:name="org.irham3.storyapp.ui.main.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/detailStoryActivity"
+        android:name="org.irham3.storyapp.ui.detail.DetailStoryActivity"
+        android:label="activity_detail_story"
+        tools:layout="@layout/activity_detail_story" />
 </navigation>

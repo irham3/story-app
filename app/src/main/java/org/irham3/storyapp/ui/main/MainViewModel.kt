@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.irham3.storyapp.data.AuthRepository
 import org.irham3.storyapp.data.StoryRepository
-import org.irham3.storyapp.data.remote.response.ListStoryItem
+import org.irham3.storyapp.data.remote.response.StoryItem
 import javax.inject.Inject
 import org.irham3.storyapp.data.Result
 
@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor (
         }
     }
 
-    fun getAllStories(token: String) : LiveData<Result<List<ListStoryItem>>> =
+    fun getAllStories(token: String) : LiveData<Result<List<StoryItem>>> =
         storyRepository.getAllStories(token).asLiveData()
 
 }

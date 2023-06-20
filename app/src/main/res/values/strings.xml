@@ -24,4 +24,10 @@
     <string name="nestedscrollviewfragment">Nested Scroll View Fragment</string>
     <string name="tambah_cerita">Tambah Cerita</string>
     <string name="keluar">Keluar</string>
+    <string name="detail_story_image">Detail Story Image</string>
+    <string name="back_button">Back Button</string>
+    <string name="text_description">Deskripsi Cerita</string>
+    <string name="content_description">Isi cerita</string>
+    <string name="text_name">Nama User</string>
+    <string name="content_name">Isi Nama User</string>
 </resources>

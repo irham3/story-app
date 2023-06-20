@@ -2,7 +2,6 @@ package org.irham3.storyapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,6 +15,7 @@ import org.irham3.storyapp.data.Result
 import org.irham3.storyapp.databinding.ActivityMainBinding
 import org.irham3.storyapp.ui.adapter.StoryAdapter
 import org.irham3.storyapp.ui.auth.AuthActivity
+import org.irham3.storyapp.ui.detail.DetailStoryActivity
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -60,15 +60,22 @@ class MainActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    val storyList = result.data
+                    val storyList = result.data!!
+                    val storyAdapter = StoryAdapter(storyList)
 
-                    if (storyList != null) {
-                        binding.rvStory.apply {
-                            visibility = View.VISIBLE
-                            layoutManager = LinearLayoutManager(this@MainActivity)
-                            adapter = StoryAdapter(storyList)
-                        }
+                    storyAdapter.onItemClick = { selectedItem ->
+                        val intent = Intent(this@MainActivity, DetailStoryActivity::class.java)
+                        intent.putExtra(DetailStoryActivity.EXTRA_TOKEN, token)
+                        intent.putExtra(DetailStoryActivity.EXTRA_ID, selectedItem.id)
+                        startActivity(intent)
                     }
+
+                    binding.rvStory.apply {
+                        visibility = View.VISIBLE
+                        layoutManager = LinearLayoutManager(this@MainActivity)
+                        adapter = storyAdapter
+                    }
+
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE

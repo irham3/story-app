@@ -13,7 +13,7 @@ import javax.inject.Inject
 class StoryRepository @Inject constructor(
     private val apiService: ApiService
 ){
-    fun getAllStories(token: String) : Flow<Result<List<ListStoryItem>>> =
+    fun getAllStories(token: String) : Flow<Result<List<StoryItem>>> =
         flow {
             emit(Result.Loading())
             val response = apiService.getAllStories(token)
@@ -37,13 +37,13 @@ class StoryRepository @Inject constructor(
 
         }.flowOn(Dispatchers.IO)
 
-    fun getDetailStory(token: String, id: Int) : Flow<Result<StoryResponse>> =
+    fun getDetailStory(token: String, id: String) : Flow<Result<DetailStoryResponse>> =
         flow {
             emit(Result.Loading())
             val response = apiService.getDetailStory(token, id)
 
             if(response.isSuccessful)
-                emit(Result.Success(response.body()?.storyResponse))
+                emit(Result.Success(response.body()))
             else
                 emit(Result.Error(response.body()?.message))
 
