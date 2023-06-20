@@ -63,11 +63,11 @@ class MainActivity : AppCompatActivity() {
                     val storyList = result.data!!
                     val storyAdapter = StoryAdapter(storyList)
 
-                    storyAdapter.onItemClick = { selectedItem ->
+                    storyAdapter.onItemClick = { selectedItem, optionsCompat ->
                         val intent = Intent(this@MainActivity, DetailStoryActivity::class.java)
                         intent.putExtra(DetailStoryActivity.EXTRA_TOKEN, token)
                         intent.putExtra(DetailStoryActivity.EXTRA_ID, selectedItem.id)
-                        startActivity(intent)
+                        startActivity(intent, optionsCompat.toBundle())
                     }
 
                     binding.rvStory.apply {

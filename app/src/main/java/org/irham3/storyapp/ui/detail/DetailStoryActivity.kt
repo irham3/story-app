@@ -23,7 +23,6 @@ class DetailStoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        theme
 
         var authToken = intent.getStringExtra(EXTRA_TOKEN)!!
         authToken = "Bearer $authToken"

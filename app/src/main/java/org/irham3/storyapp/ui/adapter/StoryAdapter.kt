@@ -1,7 +1,10 @@
 package org.irham3.storyapp.ui.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.irham3.storyapp.data.remote.response.StoryItem
@@ -9,7 +12,7 @@ import org.irham3.storyapp.databinding.ListItemBinding
 
 class StoryAdapter(private var listData: List<StoryItem>) :
     RecyclerView.Adapter<StoryAdapter.ViewHolder>(), Comparator<StoryItem> {
-    var onItemClick: ((StoryItem) -> Unit)? = null
+    var onItemClick: ((StoryItem, ActivityOptionsCompat) -> Unit)? = null
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ListItemBinding.inflate(
@@ -33,16 +36,17 @@ class StoryAdapter(private var listData: List<StoryItem>) :
                 .load(storyItem.photoUrl)
                 .into(ivItemImage)
             }
-
-
-//            itemView.setOnClickListener {
-//
-//            }
         }
 
         init {
             binding.root.setOnClickListener {
-                onItemClick?.invoke(listData[bindingAdapterPosition])
+                val optionsCompat: ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        itemView.context as Activity,
+                        Pair(binding.ivItemImage, "photo"),
+                        Pair(binding.tvItemTitle, "name")
+                    )
+                onItemClick?.invoke(listData[bindingAdapterPosition], optionsCompat)
             }
         }
     }
