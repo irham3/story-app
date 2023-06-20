@@ -2,14 +2,13 @@ package org.irham3.storyapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.irham3.storyapp.data.remote.response.ListStoryItem
 import org.irham3.storyapp.databinding.ListItemBinding
 
-class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_UTIL) {
+class StoryAdapter(private var list: List<ListStoryItem>) :
+    RecyclerView.Adapter<StoryAdapter.ViewHolder>(), Comparator<ListStoryItem> {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ListItemBinding.inflate(
@@ -17,8 +16,11 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_UT
             )
         )
     }
-    override fun onBindViewHolder(view: ViewHolder, position: Int) = with(view){
-        bind(getItem(position))
+
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(view: ViewHolder, position: Int) = with(view) {
+        bind(list[position])
     }
 
     inner class ViewHolder(private val binding: ListItemBinding) :
@@ -28,26 +30,16 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_UT
                 tvItemTitle.text = storyItem.name
             }
 
-            Glide.with(itemView.context)
+            Glide.with(binding.root.context)
                 .load(storyItem.photoUrl)
                 .into(binding.ivItemImage)
 
-            itemView.setOnClickListener {
-
-            }
+//            itemView.setOnClickListener {
+//
+//            }
         }
     }
 
-    companion object {
-        private val DIFF_UTIL = object : DiffUtil.ItemCallback<ListStoryItem>() {
-            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
+    override fun compare(p0: ListStoryItem, p1: ListStoryItem) = p0.id.compareTo(p1.id)
 
 }

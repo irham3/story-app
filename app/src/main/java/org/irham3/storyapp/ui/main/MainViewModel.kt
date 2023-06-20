@@ -1,22 +1,24 @@
 package org.irham3.storyapp.ui.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.irham3.storyapp.data.AuthRepository
-import org.irham3.storyapp.data.local.AuthPreferences
+import org.irham3.storyapp.data.StoryRepository
+import org.irham3.storyapp.data.remote.response.ListStoryItem
 import javax.inject.Inject
+import org.irham3.storyapp.data.Result
 
 @HiltViewModel
 class MainViewModel @Inject constructor (
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val storyRepository: StoryRepository
 ) : ViewModel() {
 
-    fun getAuthToken() =
+    fun getAuthToken() : LiveData<String> =
         authRepository.getAuthToken().asLiveData()
 
     fun logout() {
@@ -24,4 +26,8 @@ class MainViewModel @Inject constructor (
             authRepository.logout()
         }
     }
+
+    fun getAllStories(token: String) : LiveData<Result<List<ListStoryItem>>> =
+        storyRepository.getAllStories(token).asLiveData()
+
 }

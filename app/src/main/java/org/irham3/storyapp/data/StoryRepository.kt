@@ -21,7 +21,7 @@ class StoryRepository @Inject constructor(
             if(response.isSuccessful)
                 emit(Result.Success(response.body()?.listStory))
             else
-                emit(Result.Error(response.body()?.message))
+                emit(Result.Error(response.message().toString()))
 
         }.flowOn(Dispatchers.IO)
 
