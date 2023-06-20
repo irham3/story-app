@@ -30,4 +30,9 @@
     <string name="content_description">Isi cerita</string>
     <string name="text_name">Nama User</string>
     <string name="content_name">Isi Nama User</string>
+    <string name="description">Description</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="upload">Upload</string>
+    <string name="preview_image">Preview Image</string>
 </resources>

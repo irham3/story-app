@@ -32,7 +32,6 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-
             tvToLogin.setOnClickListener {
                 navigateToLogin()
             }
@@ -71,6 +70,6 @@ class RegisterFragment : Fragment() {
     }
 
     private fun navigateToLogin() {
-        view!!.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        requireView().findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
     }
 }
