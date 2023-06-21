@@ -12,6 +12,7 @@ import org.irham3.storyapp.databinding.ListItemBinding
 
 class StoryAdapter(private var listData: List<StoryItem>) :
     RecyclerView.Adapter<StoryAdapter.ViewHolder>(), Comparator<StoryItem> {
+
     var onItemClick: ((StoryItem, ActivityOptionsCompat) -> Unit)? = null
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

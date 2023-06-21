@@ -14,6 +14,7 @@ import org.irham3.storyapp.R
 import org.irham3.storyapp.data.Result
 import org.irham3.storyapp.databinding.ActivityMainBinding
 import org.irham3.storyapp.ui.adapter.StoryAdapter
+import org.irham3.storyapp.ui.addstory.AddStoryActivity
 import org.irham3.storyapp.ui.auth.AuthActivity
 import org.irham3.storyapp.ui.detail.DetailStoryActivity
 
@@ -48,6 +49,12 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.logout()
                 true
             }
+
+            R.id.action_tambah_cerita -> {
+                startActivity(Intent(this@MainActivity, AddStoryActivity::class.java))
+                true
+            }
+
             else -> false
         }
     }

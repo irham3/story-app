@@ -20,11 +20,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.detail.DetailStoryActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.auth.AuthActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
