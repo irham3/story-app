@@ -20,7 +20,7 @@ class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val viewModel : LoginViewModel by viewModels()
+    private val loginViewModel : LoginViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
 
-        viewModel.login(email, password).observe(viewLifecycleOwner) { result ->
+        loginViewModel.login(email, password).observe(viewLifecycleOwner) { result ->
             when(result) {
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
@@ -63,11 +63,13 @@ class LoginFragment : Fragment() {
 
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
+                    result.data?.loginResult?.token?.let { token ->
+                        loginViewModel.saveAuthToken(token)
+                    }
+                    loginViewModel.saveSession()
+
                     Toast.makeText(requireContext(), "Login Berhasil",
                         Toast.LENGTH_SHORT).show()
-                    result.data?.loginResult?.token?.let { token ->
-                        viewModel.saveAuthToken(token)
-                    }
 
                     startActivity(
                         Intent(requireContext(), MainActivity::class.java)

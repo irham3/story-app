@@ -29,12 +29,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel.getAuthToken().observe(this) { authToken ->
-            if(authToken.isEmpty()) {
+        mainViewModel.getSession().observe(this) { session ->
+            if(!session) {
                 startActivity(Intent(this@MainActivity, AuthActivity::class.java))
                 finish()
-            } else
-                showRecyclerView(authToken)
+            } else {
+                mainViewModel.getAuthToken().observe(this) { authToken ->
+                    showRecyclerView(authToken)
+                }
+            }
         }
     }
 
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         return when(item.itemId) {
             R.id.action_logout -> {
                 mainViewModel.logout()
+                Toast.makeText(this, "Anda telah keluar", Toast.LENGTH_SHORT).show()
                 true
             }
 

@@ -15,6 +15,12 @@ class LoginViewModel @Inject constructor(
     fun login(email: String, password: String) =
         authRepository.loginUser(email, password).asLiveData()
 
+    fun saveSession() {
+        viewModelScope.launch {
+            authRepository.saveSession()
+        }
+    }
+
     fun saveAuthToken(authToken: String) {
         viewModelScope.launch {
             authRepository.saveAuthToken(authToken)

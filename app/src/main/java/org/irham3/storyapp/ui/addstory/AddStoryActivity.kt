@@ -71,7 +71,7 @@ class AddStoryActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+        if (requestCode != REQUEST_CODE_PERMISSIONS) {
             Toast.makeText(
                 this,
                 "Tidak mendapat permission.",

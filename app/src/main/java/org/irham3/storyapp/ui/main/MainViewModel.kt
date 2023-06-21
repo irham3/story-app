@@ -18,6 +18,9 @@ class MainViewModel @Inject constructor (
     private val storyRepository: StoryRepository
 ) : ViewModel() {
 
+    fun getSession() : LiveData<Boolean> =
+        authRepository.getSession().asLiveData()
+
     fun getAuthToken() : LiveData<String> =
         authRepository.getAuthToken().asLiveData()
 

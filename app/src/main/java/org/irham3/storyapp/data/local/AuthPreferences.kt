@@ -3,6 +3,7 @@ package org.irham3.storyapp.data.local
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -14,12 +15,25 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "au
 class AuthPreferences @Inject constructor(private val dataStore: DataStore<Preferences>){
 
     companion object {
+        val SESSION_KEY = booleanPreferencesKey("auth_session")
         val TOKEN_KEY = stringPreferencesKey("auth_token")
+    }
+
+    fun getSession() : Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[SESSION_KEY] ?: false
+        }
     }
 
     fun getAuthToken() : Flow<String> {
         return dataStore.data.map { preferences ->
             preferences[TOKEN_KEY] ?: ""
+        }
+    }
+
+    suspend fun saveSession() {
+        dataStore.edit { mutablePreferences ->
+            mutablePreferences[SESSION_KEY] = true
         }
     }
 

@@ -42,10 +42,16 @@ class AuthRepository @Inject constructor(
         authPreferences.clearPreferences()
     }
 
+    fun getSession(): Flow<Boolean> =
+        authPreferences.getSession()
+
     fun getAuthToken(): Flow<String> =
         authPreferences.getAuthToken()
 
-    suspend fun saveAuthToken(token: String) =
+    suspend fun saveSession() =
+        authPreferences.saveSession()
+
+   suspend fun saveAuthToken(token: String) =
         authPreferences.saveAuthToken(token)
 
 }
