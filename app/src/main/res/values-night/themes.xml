@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.StoryApp" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Base.Theme.StoryApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/blue_500</item>
     </style>
 </resources>

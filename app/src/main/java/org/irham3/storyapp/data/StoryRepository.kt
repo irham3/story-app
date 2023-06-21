@@ -28,7 +28,7 @@ class StoryRepository @Inject constructor(
     fun createNewStory(token: String, description: RequestBody, photoFile: MultipartBody.Part) : Flow<Result<StatusResponse>> =
         flow {
             emit(Result.Loading())
-            val response = apiService.createNewStory(token, description, photoFile)
+            val response = apiService.createNewStory("Bearer $token", description, photoFile)
 
             if(response.isSuccessful)
                 emit(Result.Success(response.body()))
