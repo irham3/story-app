@@ -154,6 +154,7 @@ class AddStoryActivity : AppCompatActivity() {
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(this@AddStoryActivity, "File berhasil diupload", Toast.LENGTH_SHORT).show()
+                            finish()
                         }
                         is Result.Error -> {
                             binding.progressBar.visibility = View.GONE
