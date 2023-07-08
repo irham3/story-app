@@ -26,7 +26,6 @@ import org.irham3.storyapp.data.Result
 import org.irham3.storyapp.databinding.ActivityAddStoryBinding
 import org.irham3.storyapp.reduceFileImage
 import org.irham3.storyapp.rotateFile
-import org.irham3.storyapp.ui.main.MainViewModel
 import org.irham3.storyapp.uriToFile
 import java.io.File
 
@@ -37,7 +36,6 @@ class AddStoryActivity : AppCompatActivity() {
     private var getFile: File? = null
 
     private val addStoryViewModel: AddStoryViewModel by viewModels()
-    private val mainViewModel: MainViewModel by viewModels()
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
@@ -145,7 +143,7 @@ class AddStoryActivity : AppCompatActivity() {
             )
 
             // Upload
-            mainViewModel.getAuthToken().observe(this) { token ->
+            addStoryViewModel.getAuthToken().observe(this) { token ->
                 addStoryViewModel.createNewStory(token, imageMultipart, description).observe(this) { result ->
                     when(result) {
                         is Result.Loading -> {

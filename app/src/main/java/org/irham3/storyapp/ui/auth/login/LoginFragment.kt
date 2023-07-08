@@ -22,7 +22,6 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private val loginViewModel : LoginViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +34,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-
             tvToRegister.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment)
             )
@@ -44,6 +42,11 @@ class LoginFragment : Fragment() {
                 login()
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        moveToMain()
     }
 
     override fun onDestroy() {
@@ -71,10 +74,7 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), "Login Berhasil",
                         Toast.LENGTH_SHORT).show()
 
-                    startActivity(
-                        Intent(requireContext(), MainActivity::class.java)
-                    )
-                    requireActivity().finish()
+                    moveToMain()
                 }
 
                 is Result.Error -> {
@@ -82,6 +82,17 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), result.message.toString(),
                         Toast.LENGTH_LONG).show()
                 }
+            }
+        }
+    }
+
+    private fun moveToMain() {
+        loginViewModel.getSession().observe(viewLifecycleOwner) { session ->
+            if(session) {
+                startActivity(
+                    Intent(requireContext(), MainActivity::class.java)
+                )
+                requireActivity().finish()
             }
         }
     }

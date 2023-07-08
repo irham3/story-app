@@ -29,11 +29,11 @@ data class StoryItem(
 	val description: String,
 
 	@field:SerializedName("lon")
-	val lon: Number,
+	val lon: Double,
 
 	@field:SerializedName("id")
 	val id: String,
 
 	@field:SerializedName("lat")
-	val lat: Number
+	val lat: Double
 )

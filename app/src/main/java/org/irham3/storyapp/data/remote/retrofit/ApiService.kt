@@ -56,4 +56,5 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ) : Response<DetailStoryResponse>
+
 }

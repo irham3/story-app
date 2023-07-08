@@ -1,5 +1,6 @@
 package org.irham3.storyapp.ui.auth.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -20,6 +21,9 @@ class LoginViewModel @Inject constructor(
             authRepository.saveSession()
         }
     }
+
+    fun getSession() : LiveData<Boolean> =
+        authRepository.getSession().asLiveData()
 
     fun saveAuthToken(authToken: String) {
         viewModelScope.launch {

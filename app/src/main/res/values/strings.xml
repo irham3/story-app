@@ -35,4 +35,6 @@
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
     <string name="preview_image">Preview Image</string>
+    <string name="map">Map</string>
+    <string name="title_activity_maps">Maps</string>
 </resources>

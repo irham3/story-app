@@ -17,6 +17,7 @@ import org.irham3.storyapp.ui.adapter.StoryAdapter
 import org.irham3.storyapp.ui.addstory.AddStoryActivity
 import org.irham3.storyapp.ui.auth.AuthActivity
 import org.irham3.storyapp.ui.detail.DetailStoryActivity
+import org.irham3.storyapp.ui.map.MapsActivity
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -48,6 +49,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
+            R.id.action_map -> {
+                startActivity(Intent(this, MapsActivity::class.java))
+                true
+            }
             R.id.action_logout -> {
                 mainViewModel.logout()
                 Toast.makeText(this, "Anda telah keluar", Toast.LENGTH_SHORT).show()

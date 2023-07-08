@@ -25,6 +25,18 @@ class StoryRepository @Inject constructor(
 
         }.flowOn(Dispatchers.IO)
 
+    fun getStoriesWithLocation(token: String) : Flow<Result<List<StoryItem>>> =
+        flow {
+            emit(Result.Loading())
+            val response = apiService.getAllStories(token = "Bearer $token", location = 1)
+
+            if(response.isSuccessful)
+                emit(Result.Success(response.body()?.listStory))
+            else
+                emit(Result.Error(response.message().toString()))
+
+        }.flowOn(Dispatchers.IO)
+
     fun createNewStory(token: String, description: RequestBody, photoFile: MultipartBody.Part) : Flow<Result<StatusResponse>> =
         flow {
             emit(Result.Loading())
