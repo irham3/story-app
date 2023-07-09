@@ -2,7 +2,6 @@ package org.irham3.storyapp.data.remote.retrofit
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.irham3.storyapp.data.remote.response.DetailStoryResponse
 import org.irham3.storyapp.data.remote.response.ListStoryResponse
 import org.irham3.storyapp.data.remote.response.LoginResponse
 import org.irham3.storyapp.data.remote.response.StatusResponse
@@ -14,7 +13,6 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -50,11 +48,5 @@ interface ApiService {
         @Query("size") size: Int? = null,
         @Query("location") location: Int? = null
     ) : Response<ListStoryResponse>
-
-    @GET("v1/stories/{id}")
-    suspend fun getDetailStory(
-        @Header("Authorization") token: String,
-        @Path("id") id: String
-    ) : Response<DetailStoryResponse>
 
 }

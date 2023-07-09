@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import org.irham3.storyapp.data.AuthRepository
 import org.irham3.storyapp.data.Result
 import org.irham3.storyapp.data.StoryRepository
-import org.irham3.storyapp.data.remote.response.StoryItem
+import org.irham3.storyapp.data.remote.response.StoryResponse
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +19,7 @@ class MapsViewModel @Inject constructor(
     fun getAuthToken() : LiveData<String> =
         authRepository.getAuthToken().asLiveData()
 
-    fun getStoriesWithLocation(token: String) : LiveData<Result<List<StoryItem>>> =
+    fun getStoriesWithLocation(token: String) : LiveData<Result<List<StoryResponse>>> =
         storyRepository.getStoriesWithLocation(token).asLiveData()
 
 }

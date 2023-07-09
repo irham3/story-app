@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.irham3.storyapp.data.AuthRepository
 import org.irham3.storyapp.data.StoryRepository
-import org.irham3.storyapp.data.remote.response.StoryItem
 import javax.inject.Inject
-import org.irham3.storyapp.data.Result
+import org.irham3.storyapp.data.local.entity.StoryEntity
 
 @HiltViewModel
 class MainViewModel @Inject constructor (
@@ -30,7 +31,7 @@ class MainViewModel @Inject constructor (
         }
     }
 
-    fun getAllStories(token: String) : LiveData<Result<List<StoryItem>>> =
-        storyRepository.getAllStories(token).asLiveData()
+    fun getAllStories(token: String) : LiveData<PagingData<StoryEntity>> =
+        storyRepository.getAllStories(token).cachedIn(viewModelScope)
 
 }

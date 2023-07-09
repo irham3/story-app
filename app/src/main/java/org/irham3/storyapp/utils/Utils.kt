@@ -1,4 +1,4 @@
-package org.irham3.storyapp
+package org.irham3.storyapp.utils
 
 import android.content.ContentResolver
 import android.content.Context

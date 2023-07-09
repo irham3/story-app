@@ -4,19 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.irham3.storyapp.R
-import org.irham3.storyapp.data.Result
 import org.irham3.storyapp.databinding.ActivityMainBinding
+import org.irham3.storyapp.ui.adapter.LoadingStateAdapter
 import org.irham3.storyapp.ui.adapter.StoryAdapter
 import org.irham3.storyapp.ui.addstory.AddStoryActivity
 import org.irham3.storyapp.ui.auth.AuthActivity
-import org.irham3.storyapp.ui.detail.DetailStoryActivity
 import org.irham3.storyapp.ui.map.MapsActivity
 
 @AndroidEntryPoint
@@ -69,36 +67,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerView(token: String) {
-        mainViewModel.getAllStories("Bearer $token").observe(this) { result ->
-            when(result) {
-                is Result.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    val storyList = result.data!!
-                    val storyAdapter = StoryAdapter(storyList)
-
-                    storyAdapter.onItemClick = { selectedItem, optionsCompat ->
-                        val intent = Intent(this@MainActivity, DetailStoryActivity::class.java)
-                        intent.putExtra(DetailStoryActivity.EXTRA_TOKEN, token)
-                        intent.putExtra(DetailStoryActivity.EXTRA_ID, selectedItem.id)
-                        startActivity(intent, optionsCompat.toBundle())
-                    }
-
-                    binding.rvStory.apply {
-                        visibility = View.VISIBLE
-                        layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = storyAdapter
-                    }
-
-                }
-                is Result.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(this, result.message.toString(), Toast.LENGTH_LONG).show()
-                }
-                else -> {}
+        binding.rvStory.layoutManager = LinearLayoutManager(this@MainActivity)
+        val storyAdapter = StoryAdapter()
+        binding.rvStory.adapter = storyAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                storyAdapter.retry()
             }
+        )
+        mainViewModel.getAllStories(token).observe(this) { pagingData ->
+            storyAdapter.submitData(lifecycle, pagingData)
         }
     }
 }

@@ -2,17 +2,17 @@ package org.irham3.storyapp.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import org.irham3.storyapp.data.Result
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.irham3.storyapp.databinding.ActivityDetailStoryBinding
 
 @AndroidEntryPoint
 class DetailStoryActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_TOKEN = "extra_token"
         const val EXTRA_ID = "extra_id"
     }
 
@@ -24,29 +24,19 @@ class DetailStoryActivity : AppCompatActivity() {
         binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var authToken = intent.getStringExtra(EXTRA_TOKEN)!!
-        authToken = "Bearer $authToken"
         val storyId = intent.getStringExtra(EXTRA_ID)!!
 
-        detailStoryViewModel.getDetailStory(authToken, storyId).observe(this) { result ->
-            when(result) {
-                is Result.Loading -> {
+        CoroutineScope(Dispatchers.Main).launch {
+            val detailData = detailStoryViewModel.getDetailStory(storyId)
+            binding.apply {
+                Glide.with(root.context)
+                    .load(detailData.photoUrl)
+                    .into(ivDetailPhoto)
 
-                }
-                is Result.Error -> {
-                    Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
-                }
-                is Result.Success -> {
-                    val detailData = result.data?.storyResponse
-                    binding.apply {
-                        tvDetailName.text = detailData?.name
-                        tvDetailDescription.text = detailData?.description
-                        Glide.with(root.context)
-                            .load(detailData?.photoUrl)
-                            .into(ivDetailPhoto)
-                    }
-                }
+                tvDetailName.text = detailData.name
+                tvDetailDescription.text = detailData.description
             }
         }
+
     }
 }

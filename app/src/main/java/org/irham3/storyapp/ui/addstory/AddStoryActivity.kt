@@ -21,12 +21,12 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.irham3.storyapp.createCustomTempFile
+import org.irham3.storyapp.utils.createCustomTempFile
 import org.irham3.storyapp.data.Result
 import org.irham3.storyapp.databinding.ActivityAddStoryBinding
-import org.irham3.storyapp.reduceFileImage
-import org.irham3.storyapp.rotateFile
-import org.irham3.storyapp.uriToFile
+import org.irham3.storyapp.utils.reduceFileImage
+import org.irham3.storyapp.utils.rotateFile
+import org.irham3.storyapp.utils.uriToFile
 import java.io.File
 
 @AndroidEntryPoint
